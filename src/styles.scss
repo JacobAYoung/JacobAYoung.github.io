@@ -1,0 +1,29 @@
+/* Global: color tokens (light + dark), the typeface, base resets. Component styles live next to the component. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap');
+
+:root {
+  color-scheme: light dark;
+  --paper: #f7f7f5;
+  --ink: #1e2a38;
+  --muted: #6f7a85;
+  --rule: #d9dcdf;
+  --cobalt: #1f4fbf;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #14181d;
+    --ink: #e6e9ec;
+    --muted: #9aa5b1;
+    --rule: #2a323b;
+    --cobalt: #8fb0ff;
+  }
+}
+
+html { background: var(--paper); }
+body { margin: 0; background: var(--paper); }
+*, *::before, *::after { box-sizing: border-box; }
+
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+html { scroll-behavior: smooth; }
+::selection { background: var(--cobalt); color: #fff; }

@@ -1,20 +1,102 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<a class="skip" href="#work">Skip to experience</a>
 
+<div class="page">
+  <aside class="rail">
+    <div class="rail-top">
+      <p class="name">{{ person.name }}</p>
+      <p class="role">{{ person.title }}</p>
+      <p class="place">{{ person.where }}</p>
+    </div>
+
+    <nav class="rail-nav" aria-label="Sections">
+      <a href="#work">Experience</a>
+      <a href="#built">Things built</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </nav>
+
+    <div class="rail-contact">
+      <a class="download" [href]="person.resumePdf" download>Download résumé (PDF)</a>
+      <a [href]="'mailto:' + person.email">{{ person.email }}</a>
+      <a [href]="person.phoneHref">{{ person.phone }}</a>
+      <a [href]="person.github" rel="me noopener">github.com/JacobAYoung</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="hero">
+      <h1>{{ person.headline }}</h1>
+      <p class="summary">{{ person.summary }}</p>
+    </header>
+
+    <section id="work" class="section" aria-labelledby="work-h">
+      <h2 id="work-h">Experience</h2>
+      <ol class="timeline">
+        @for (job of jobs; track job.company + job.from) {
+          <li class="job">
+            <div class="when">
+              <span>{{ job.from }}</span>
+              <span class="to">{{ job.to }}</span>
+            </div>
+            <div class="job-body">
+              <h3>{{ job.title }}</h3>
+              <p class="employer">{{ job.company }}, {{ job.where }}</p>
+              @if (job.outcome) {
+                <p class="outcome">{{ job.outcome }}</p>
+              }
+              <ul>
+                @for (p of job.points; track p) {
+                  <li>{{ p }}</li>
+                }
+              </ul>
+            </div>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <section id="built" class="section" aria-labelledby="built-h">
+      <h2 id="built-h">Things built</h2>
+      <div class="projects">
+        @for (pr of projects; track pr.name) {
+          <article class="project">
+            <h3>{{ pr.name }} <span class="when-inline">{{ pr.when }}</span></h3>
+            <p>{{ pr.what }}</p>
+            <p class="built"><span>Built with</span> {{ pr.built }}</p>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section id="skills" class="section" aria-labelledby="skills-h">
+      <h2 id="skills-h">Skills</h2>
+      <dl class="skills">
+        @for (s of skills; track s.area) {
+          <div class="skill-row">
+            <dt>{{ s.area }}</dt>
+            <dd>{{ s.items.join(', ') }}</dd>
+          </div>
+        }
+      </dl>
+    </section>
+
+    <section id="education" class="section" aria-labelledby="education-h">
+      <h2 id="education-h">Education</h2>
+      <ul class="education">
+        @for (e of education; track e.school) {
+          <li>
+            <span class="degree">{{ e.degree }}</span>
+            <span class="school">{{ e.school }}, {{ e.when }}</span>
+          </li>
+        }
+      </ul>
+      <p class="interests">
+        Outside work: {{ interests.otherwise.join(', ').toLowerCase() }}. Reading about: {{ interests.technical.join(', ').toLowerCase() }}.
+      </p>
+    </section>
+
+    <footer class="foot">
+      <p>{{ person.name }}, {{ year }}. Built with Angular, deployed from GitHub.</p>
+    </footer>
+  </main>
+</div>
