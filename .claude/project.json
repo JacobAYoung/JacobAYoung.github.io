@@ -1,0 +1,4 @@
+{
+  "verify": "npm run build",
+  "verify_timeout": 300
+}
